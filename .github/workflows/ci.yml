@@ -1,0 +1,33 @@
+name: KRONOS-CI-10-10
+on: [push]
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Generar y validar
+        run: |
+          node generate_logs_hsm.js
+          cd server && npm install && npm test -- --coverage
+          cd ..
+
+      - name: Hash + Inyección
+        run: |
+          HASH=$(find logs docs/piloto/md docs/normas/md server/src simulaciones -type f -exec sha256sum {} \; | sort | sha256sum | cut -d' ' -f1)
+          sed -i "s/<!-- HASH_PLACEHOLDER -->/$HASH/g" README.md
+          echo "HASH=$HASH" >> $GITHUB_ENV
+
+      - name: Commit hash [skip ci]
+        run: |
+          git config user.name "kronos-bot"
+          git config user.email "marco.a.rojas.v@hotmail.com"
+          git add README.md logs/hash.sha256
+          git commit -m "chore: evidence hash $HASH [skip ci]" || exit 0
+          git push
