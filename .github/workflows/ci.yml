@@ -27,7 +27,7 @@ jobs:
       - name: Commit hash [skip ci]
         run: |
           git config user.name "kronos-bot"
-          git config user.email "marco.a.rojas.v@hotmail.com"
+          git config user.email "contacto@kronos3hash.online marco.a.rojas.v@hotmail.com"
           git add README.md logs/hash.sha256
           git commit -m "chore: evidence hash $HASH [skip ci]" || exit 0
           git push
