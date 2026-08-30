@@ -1,16 +1,9 @@
-const express = require('express');
-const app = express();
+const request = require('supertest');
+const app = require('../src/server');
 
-app.get('/health', (req, res) => {
-  res.status(200).json({
-    status: 'OK',
-    container: 'KRNU 847102 3',
-    hash: require('fs').readFileSync('../logs/hash.sha256', 'utf8').trim()
-  });
+test('GET /health retorna 200 y estado OK', async () => {
+  const res = await request(app).get('/health');
+  expect(res.statusCode).toBe(200);
+  expect(res.body.status).toBe('OK');
+  expect(res.body.container).toBe('KRNU 847102 3');
 });
-
-if (require.main === module) {
-  app.listen(3000, () => console.log('Server running on port 3000'));
-}
-
-module.exports = app;
