@@ -1,0 +1,17 @@
+{
+  "name": "kronos-trust-layer-server",
+  "version": "1.2.0",
+  "description": "API para KRONOS Trust Layer",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "express": "^4.18.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "supertest": "^6.3.0"
+  }
+}
