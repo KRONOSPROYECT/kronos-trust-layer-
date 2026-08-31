@@ -1,0 +1,12 @@
+[
+  {
+    "event_id": "EV-0000",
+    "timestamp": "2026-08-25T12:00:00.000Z",
+    "container_id": "KRNU 847102 3",
+    "location": "TPS_VALPARAISO",
+    "temp_internal": -18.12,
+    "status": "STABLE",
+    "actor": "EXPORTADOR"
+  },
+  ...
+]
